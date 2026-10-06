@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Biblioteca Aurora</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ACESSIBILIDADE -->
+    <div class="accessibility-bar">
+        <div class="access-left">
+            <button onclick="increaseFont()">A+</button>
+            <button onclick="decreaseFont()">A-</button>
+            <button onclick="toggleContrast()">Alto contraste</button>
+        </div>
+
+        <div class="access-right">
+            <span>Biblioteca Aurora</span>
+        </div>
+    </div>
+
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <span>✦</span>
+            </div>
+
+            <div>
+                <strong>Aurora</strong>
+                <small>Biblioteca</small>
+            </div>
+        </div>
+
+
+        <nav class="main-menu">
+
+            <p class="menu-title">EXPLORAR</p>
+
+            <button class="menu-item active" data-page="home">
+                <span>⌂</span>
+                Início
+            </button>
+
+            <button class="menu-item" data-page="catalog">
+                <span>▦</span>
+                Acervo
+            </button>
+
+            <button class="menu-item" data-page="favorites">
+                <span>♡</span>
+                Minha lista
+            </button>
+
+
+            <p class="menu-title">BIBLIOTECA</p>
+
+            <button class="menu-item" data-page="books">
+                <span>▤</span>
+                Cadastro de livros
+            </button>
+
+            <button class="menu-item" data-page="users">
+                <span>♙</span>
+                Usuários
+            </button>
+
+            <button class="menu-item" data-page="loans">
+                <span>↗</span>
+                Empréstimos
+            </button>
+
+
+            <p class="menu-title">ACOMPANHAR</p>
+
+            <button class="menu-item" data-page="history">
+                <span>◷</span>
+                Histórico
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button class="menu-item" id="themeBtn">
+                <span id="themeIcon">☾</span>
+                Aparência
+            </button>
+
+            <div class="profile-mini">
+                <div class="avatar">B</div>
+
+                <div>
+                    <strong>Bibliotecário</strong>
+                    <small>Administrador</small>
+                </div>
+
+                <span>•••</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CONTEÚDO -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenu">
+                ☰
+            </button>
+
+            <div class="breadcrumb">
+                Biblioteca
+                <span>/</span>
+                <strong id="breadcrumbTitle">Início</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <button class="icon-btn" title="Notificações">
+                    ♢
+                    <span class="notification"></span>
+                </button>
+
+                <button class="profile-button">
+                    <div class="avatar small">B</div>
+                    <span>Bibliotecário</span>
+                    <b>⌄</b>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= HOME ================= -->
+        <section class="page active" id="page-home">
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <span class="eyebrow">BIBLIOTECA AURORA</span>
+
+                    <h1>
+                        Descubra seu próximo
+                        <em>livro favorito.</em>
+                    </h1>
+
+                    <p>
+                        Explore o acervo, encontre novos títulos
+                        e acompanhe os empréstimos da biblioteca.
+                    </p>
+
+
+                    <div class="big-search">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="homeSearch"
+                            placeholder="Digite o nome do livro ou autor..."
+                        >
+
+                        <button id="homeSearchBtn">
+                            Buscar
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-decoration">
+                    <div class="book-stack">
+                        <div class="book book-1"></div>
+                        <div class="book book-2"></div>
+                        <div class="book book-3"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- INDICADORES -->
+            <div class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">▤</div>
+                    <div>
+                        <span>Livros cadastrados</span>
+                        <strong id="statBooks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">♙</div>
+                    <div>
+                        <span>Usuários</span>
+                        <strong id="statUsers">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">↗</div>
+                    <div>
+                        <span>Empréstimos abertos</span>
+                        <strong id="statOpenLoans">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Devolvidos</span>
+                        <strong id="statReturned">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- LIVROS -->
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">ACERVO</span>
+                    <h2>Livros em destaque</h2>
+                </div>
+
+                <button class="text-button" data-page-link="catalog">
+                    Ver acervo completo →
+                </button>
+
+            </div>
+
+
+            <div class="book-grid" id="homeBookGrid">
+                <!-- JS -->
+            </div>
+
+
+            <!-- ATIVIDADE -->
+            <div class="home-columns">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">ATIVIDADE</span>
+                            <h3>Empréstimos recentes</h3>
+                        </div>
+
+                        <button class="text-button" data-page-link="history">
+                            Ver todos
+                        </button>
+                    </div>
+
+                    <div id="recentLoans" class="loan-list">
+                        <!-- JS -->
+                    </div>
+
+                </div>
+
+
+                <div class="quote-card">
+
+                    <span class="quote-mark">“</span>
+
+                    <p>
+                        Um livro é uma porta que se abre
+                        para possibilidades que ainda
+                        não conhecemos.
+                    </p>
+
+                    <span class="quote-author">
+                        Biblioteca Aurora
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ACERVO ================= -->
+        <section class="page" id="page-catalog">
+
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">ACERVO</span>
+                    <h1>Explore nossa coleção</h1>
+                    <p>Encontre livros por título, autor ou categoria.</p>
+                </div>
+            </div>
+
+
+            <div class="catalog-toolbar">
+
+                <div class="search-field">
+                    <span>⌕</span>
+                    <input
+                        id="catalogSearch"
+                        type="text"
+                        placeholder="Buscar livro ou autor..."
+                    >
+                </div>
+
+                <select id="categoryFilter">
+                    <option value="">Todas as categorias</option>
+                    <option value="Tecnologia">Tecnologia</option>
+                    <option value="Literatura">Literatura</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Fantasia">Fantasia</option>
+                    <option value="Educação">Educação</option>
+                    <option value="História">História</option>
+                    <option value="Ciência">Ciência</option>
+                </select>
+
+                <select id="sortBooks">
+                    <option value="recent">Mais recentes</option>
+                    <option value="title">Título A-Z</option>
+                    <option value="author">Autor A-Z</option>
+                </select>
+
+            </div>
+
+
+            <div class="result-info">
+                <span id="catalogResult">0 livros encontrados</span>
+            </div>
+
+
+            <div class="book-grid large" id="catalogGrid">
+                <!-- JS -->
+            </div>
+
+        </section>
+
+
+        <!-- ================= MINHA LISTA ================= -->
+        <section class="page" id="page-favorites">
+
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">MINHA LISTA</span>
+                    <h1>Livros salvos</h1>
+                    <p>Guarde os livros que você deseja consultar depois.</p>
+                </div>
+            </div>
+
+            <div class="book-grid large" id="favoritesGrid"></div>
+
+        </section>
+
+
+        <!-- ================= LIVROS ================= -->
+        <section class="page" id="page-books">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">ADMINISTRAÇÃO</span>
+                    <h1>Cadastro de livros</h1>
+                    <p>Gerencie os títulos disponíveis no acervo.</p>
+                </div>
+
+                <button class="primary-btn" id="openBookModal">
+                    + Novo livro
+                </button>
+
+            </div>
+
+
+            <div class="management-panel">
+
+                <div class="management-toolbar">
+
+                    <div class="search-field">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="bookManagementSearch"
+                            placeholder="Pesquisar livro..."
+                        >
+                    </div>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Livro</th>
+                                <th>Autor</th>
+                                <th>Categoria</th>
+                                <th>Exemplares</th>
+                                <th>Disponíveis</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="booksTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= USUÁRIOS ================= -->
+        <section class="page" id="page-users">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">ADMINISTRAÇÃO</span>
+                    <h1>Usuários</h1>
+                    <p>Cadastre e gerencie os usuários da biblioteca.</p>
+                </div>
+
+                <button class="primary-btn" id="openUserModal">
+                    + Novo usuário
+                </button>
+
+            </div>
+
+
+            <div class="management-panel">
+
+                <div class="management-toolbar">
+
+                    <div class="search-field">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="userSearch"
+                            placeholder="Pesquisar usuário..."
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Usuário</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Empréstimos</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="usersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EMPRÉSTIMOS ================= -->
+        <section class="page" id="page-loans">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">BIBLIOTECA</span>
+                    <h1>Novo empréstimo</h1>
+                    <p>Registre a retirada de um livro pelo usuário.</p>
+                </div>
+
+            </div>
+
+
+            <div class="loan-layout">
+
+                <div class="form-panel">
+
+                    <form id="loanForm">
+
+                        <div class="form-title">
+                            <div class="form-icon">↗</div>
+
+                            <div>
+                                <h3>Registrar empréstimo</h3>
+                                <p>Preencha os dados abaixo.</p>
+                            </div>
+                        </div>
+
+
+                        <label>
+                            Livro
+
+                            <select id="loanBook" required>
+                                <option value="">Selecione um livro</option>
+                            </select>
+                        </label>
+
+
+                        <label>
+                            Usuário
+
+                            <select id="loanUser" required>
+                                <option value="">Selecione um usuário</option>
+                            </select>
+                        </label>
+
+
+                        <div class="form-row">
+
+                            <label>
+                                Data do empréstimo
+
+                                <input
+                                    type="date"
+                                    id="loanDate"
+                                    required
+                                >
+                            </label>
+
+
+                            <label>
+                                Data prevista para devolução
+
+                                <input
+                                    type="date"
+                                    id="dueDate"
+                                    required
+                                >
+                            </label>
+
+                        </div>
+
+
+                        <button class="primary-btn full" type="submit">
+                            Registrar empréstimo
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="loan-info">
+
+                    <div class="info-card">
+
+                        <span class="info-number">01</span>
+
+                        <h3>Escolha o livro</h3>
+
+                        <p>
+                            Selecione um título que possua
+                            exemplares disponíveis.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <span class="info-number">02</span>
+
+                        <h3>Selecione o usuário</h3>
+
+                        <p>
+                            O empréstimo ficará associado
+                            ao usuário cadastrado.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <span class="info-number">03</span>
+
+                        <h3>Acompanhe a devolução</h3>
+
+                        <p>
+                            O histórico mostrará quando
+                            o livro foi devolvido.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HISTÓRICO ================= -->
+        <section class="page" id="page-history">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="eyebrow">HISTÓRICO</span>
+                    <h1>Empréstimos</h1>
+                    <p>Acompanhe todos os empréstimos registrados.</p>
+                </div>
+
+            </div>
+
+
+            <div class="management-panel">
+
+                <div class="history-filters">
+
+                    <div class="search-field">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="loanSearch"
+                            placeholder="Pesquisar livro ou usuário..."
+                        >
+                    </div>
+
+                    <select id="statusFilter">
+                        <option value="">Todos os status</option>
+                        <option value="open">Em aberto</option>
+                        <option value="returned">Devolvido</option>
+                    </select>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Livro / Autor</th>
+                                <th>Usuário</th>
+                                <th>Empréstimo</th>
+                                <th>Devolução</th>
+                                <th>Status</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="loansTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= MODAL LIVRO ================= -->
+
+    <div class="modal-overlay" id="bookModal">
+
+        <div class="modal">
+
+            <button class="modal-close" data-close="bookModal">×</button>
+
+            <span class="eyebrow">NOVO CADASTRO</span>
+
+            <h2>Cadastrar livro</h2>
+
+            <p class="modal-subtitle">
+                Adicione uma nova obra ao acervo.
+            </p>
+
+
+            <form id="bookForm">
+
+                <label>
+                    Título do livro
+                    <input id="bookTitle" required placeholder="Ex.: O Hobbit">
+                </label>
+
+                <label>
+                    Autor
+                    <input id="bookAuthor" required placeholder="Ex.: J. R. R. Tolkien">
+                </label>
+
+                <div class="form-row">
+
+                    <label>
+                        Categoria
+
+                        <select id="bookCategory" required>
+                            <option value="">Selecione</option>
+                            <option>Tecnologia</option>
+                            <option>Literatura</option>
+                            <option>Romance</option>
+                            <option>Fantasia</option>
+                            <option>Educação</option>
+                            <option>História</option>
+                            <option>Ciência</option>
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Quantidade
+
+                        <input
+                            id="bookQuantity"
+                            type="number"
+                            min="1"
+                            value="1"
+                            required
+                        >
+
+                    </label>
+
+                </div>
+
+
+                <button class="primary-btn full" type="submit">
+                    Cadastrar livro
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MODAL USUÁRIO ================= -->
+
+    <div class="modal-overlay" id="userModal">
+
+        <div class="modal">
+
+            <button class="modal-close" data-close="userModal">×</button>
+
+            <span class="eyebrow">NOVO CADASTRO</span>
+
+            <h2>Cadastrar usuário</h2>
+
+            <p class="modal-subtitle">
+                Adicione uma pessoa à biblioteca.
+            </p>
+
+
+            <form id="userForm">
+
+                <label>
+                    Nome completo
+                    <input id="userName" required placeholder="Nome do usuário">
+                </label>
+
+                <label>
+                    E-mail
+                    <input
+                        id="userEmail"
+                        type="email"
+                        required
+                        placeholder="email@exemplo.com"
+                    >
+                </label>
+
+                <label>
+                    Telefone
+                    <input id="userPhone" placeholder="(00) 00000-0000">
+                </label>
+
+
+                <button class="primary-btn full" type="submit">
+                    Cadastrar usuário
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✓</span>
+        <span id="toastMessage">Operação realizada.</span>
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
+
